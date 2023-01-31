@@ -1,3 +1,5 @@
+//hola mundo
+
 let sectionSeleccionarAtaque = document.getElementById("Seleccionar-Ataque")
 
 let sectionReiniciarCombate = document.getElementById("Combate-de-nuevo")
