@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="utf-8" />
+                <title>MOKEPON!</title>                
+            <link rel="stylesheet" href="./styles.css">
+        </head>
+        <body>
+            <section id="Seleccionar-Mascota">
+                <h1 class="title">Mokepon!</h1>
+
+
+                <h2 class="subtitulo">Elige tu Mokepon</h2>
+
+                <div class="tarjetas">
+                    <input type="radio" name="Mokepones" id="Square" />
+                    <label class="tarjeta-de-mokepon" for="Square">
+                        <p>Square</p>
+                        <img src="./assets/Square.webp" alt="Square"
+                        style="width: 67px;">
+                    </label>
+
+                    <input type="radio" name="Mokepones" id="Circol" />
+                    <label class="tarjeta-de-mokepon" for="Circol">
+                        <p>Circol</p>
+                        <img src="./assets/Circle.webp" alt="Circol"
+                        style="width: 67px;">
+                    </label>
+
+                    <input type="radio" name="Mokepones" id="Trayangle" />
+                    <label class="tarjeta-de-mokepon" for="Trayangle">
+                        <p>Trayangle</p>
+                        <img src="./assets/Triangle.webp" alt="Trayangle"
+                       style="width: 67px;" >
+                    </label>
+                    
+                </div>
+
+                <button class="seleccionarCompi" id="Seleccionar">Seleccionar Mokepon</button>
+            </section>
+
+            <section id="Seleccionar-Ataque">
+                <h1 class="title">MOKEPON!</h1>
+
+                <h2 class="subtitulo">Elige el ataque de tu Mokepon</h2>
+
+                <div class="tarjetas-ataque">
+                    <button id="Ataque Fuego" class="botonAtaque">Fuego 🔥</button>
+                    <button id="Ataque Agua"class="botonAtaque">Agua 💧</button>
+                    <button id="Ataque Planta"class="botonAtaque">Planta 🌱</button>
+                </div>
+
+                <div>
+            <section id="Avisos">
+                
+            <p id="resultado">Mucha Suerte!</p>
+            <div id="Combate-de-nuevo">
+                <button id="Otra-Oportunidad">Otra oportunidad</button>
+            </div>
+            </section >
+            
+            
+                </div>
+
+                <div class="ataques">
+                    <div class="ataques-jugador">
+                        <p id="vidasJugador">3</p>
+                        <p id="mokepon-Jugador"></p>
+                        <div id="ataque-del-jugador"></div>
+                        
+                    </div>
+                    <div class="ataques-enemigo">
+                        <p id="vidasEnemigo">3</p>
+                        <p id="mokepon-enemigo"></p>
+                        <div id="ataque-del-enemigo"></div>
+                        
+                    </div>
+                </div>
+            </section>
+            <script src="./js/mokepon.js"></script>
+        </body>
+</html>
