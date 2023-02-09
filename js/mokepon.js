@@ -1,36 +1,81 @@
 //hola mundo
 
-let sectionSeleccionarAtaque = document.getElementById("Seleccionar-Ataque")
+const sectionSeleccionarAtaque = document.getElementById("Seleccionar-Ataque")
+const sectionReiniciarCombate = document.getElementById("Combate-de-nuevo")
+const SeleccionarJugdor = document.getElementById("Seleccionar")
+const botonFuego = document.getElementById("Ataque Fuego")
+const botonAgua = document.getElementById("Ataque Agua")
+const botonPlanta = document.getElementById("Ataque Planta")
+const botonReiniciar = document.getElementById("Otra-Oportunidad")
 
-let sectionReiniciarCombate = document.getElementById("Combate-de-nuevo")
-let SeleccionarJugdor = document.getElementById("Seleccionar")
-let botonFuego = document.getElementById("Ataque Fuego")
-let botonAgua = document.getElementById("Ataque Agua")
-let botonPlanta = document.getElementById("Ataque Planta")
-let botonReiniciar = document.getElementById("Otra-Oportunidad")
+const imputSquare = document.getElementById("Square")
+const imputCircol = document.getElementById("Circol")
+const imputTrayangle = document.getElementById("Trayangle")
+const spanMokeponJugador = document.getElementById("mokepon-Jugador")
 
-let imputSquare = document.getElementById("Square")
-let imputCircol = document.getElementById("Circol")
-let imputTrayangle = document.getElementById("Trayangle")
-let spanMokeponJugador = document.getElementById("mokepon-Jugador")
+const sectionSeleccionarMokepon = document.getElementById("Seleccionar-Mascota")
+const ataqueAleatorio = aleatorio(1,3)
+const spanMokeponEnemigo = document.getElementById("mokepon-enemigo")
 
-let sectionSeleccionarMokepon = document.getElementById("Seleccionar-Mascota")
-let ataqueAleatorio = aleatorio(1,3)
-let spanMokeponEnemigo = document.getElementById("mokepon-enemigo")
+const spanVidasJugador = document.getElementById("vidasJugador")
+const spanVidasEnemigo = document.getElementById("vidasEnemigo")
 
-let spanVidasJugador = document.getElementById("vidasJugador")
-let spanVidasEnemigo = document.getElementById("vidasEnemigo")
-
-let seccionAvisos = document.getElementById("resultado")
-let ataqueDelJugador = document.getElementById("ataque-del-jugador")
-let ataqueDelEnemigo = document.getElementById("ataque-del-enemigo")
-
+const seccionAvisos = document.getElementById("resultado")
+const ataqueDelJugador = document.getElementById("ataque-del-jugador")
+const ataqueDelEnemigo = document.getElementById("ataque-del-enemigo")
 
 
+var mokepones = []
 let ataqueJugador
 let ataqueEnemigo
 let vidasJugador = 3
 let vidasEnemigo = 3
+
+class Mokepon {
+    constructor(nombre, foto, vidas){
+        this.nombre = nombre
+        this.foto = foto
+        this.vidas = vidas
+        this.ataques = []
+    }
+    
+}
+
+let Square = new Mokepon('Square', './assets/Square.webp', 5)
+
+let Circol = new Mokepon('Circol', './assets/Circle.webp', 5)
+
+let Trayangle = new Mokepon('Trayangle', './assets/Triangle.webp', 5)
+
+Square.ataques.push(
+    { nombre: '🔥', id: 'Ataque Fuego' },
+    { nombre: '🔥', id: 'Ataque Fuego' },
+    { nombre: '🔥', id: 'Ataque Fuego' },
+    { nombre: '💧', id: 'Ataque Agua' },
+    { nombre: '🌱', id: 'Ataque Planta' },
+
+)
+
+Circol.ataques.push(
+    { nombre: '💧', id: 'Ataque Agua' },
+    { nombre: '💧', id: 'Ataque Agua' },
+    { nombre: '💧', id: 'Ataque Agua' },
+    { nombre: '🔥', id: 'Ataque Fuego' },
+    { nombre: '🌱', id: 'Ataque Planta' },
+
+)
+
+Trayangle.ataques.push(
+    { nombre: '🌱', id: 'Ataque Planta' },
+    { nombre: '🌱', id: 'Ataque Planta' },
+    { nombre: '🌱', id: 'Ataque Planta' },
+    { nombre: '💧', id: 'Ataque Agua' },
+    { nombre: '🔥', id: 'Ataque Fuego' },
+
+)
+
+
+
 
 function iniciarJuego(){
     
