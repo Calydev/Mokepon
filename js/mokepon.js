@@ -23,11 +23,13 @@ const spanVidasEnemigo = document.getElementById("vidasEnemigo")
 const seccionAvisos = document.getElementById("resultado")
 const ataqueDelJugador = document.getElementById("ataque-del-jugador")
 const ataqueDelEnemigo = document.getElementById("ataque-del-enemigo")
-
+const contenedorTarjetas = document.getElementById("contenedorTarjetas")
 
 var mokepones = []
 let ataqueJugador
 let ataqueEnemigo
+var opcionesDeMokepon
+
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -74,12 +76,24 @@ Trayangle.ataques.push(
 
 )
 
-
+mokepones.push(Square,Circol,Trayangle)
 
 
 function iniciarJuego(){
     
     sectionSeleccionarAtaque.style.display = "none"  
+
+    mokepones.forEach((Mokepon) =>{
+        opcionesDeMokepon =  `
+        <input type="radio" name="Mokepones" id=${mokepones.nombre} />
+                    <label class="tarjeta-de-mokepon" for=${mokepones.nombre}>
+                        <p>${mokepones.nombre}</p>
+                        <img src=${mokepones.foto} alt=${mokepones.nombre}
+                        style="width: 67px;">
+                    </label>
+        `
+    })
+
     sectionReiniciarCombate.style.display = "none"
     SeleccionarJugdor.addEventListener("click", seleccionarMokeponJugador)
     botonFuego.addEventListener("click", ataqueFuego)
