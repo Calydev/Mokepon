@@ -24,18 +24,22 @@ const contenedorAtaques = document.getElementById("contenedorAtaques")
 
 var mokepones = []
 let ataqueJugador = []
-let ataqueEnemigo
+let ataqueEnemigo = []
 var opcionesDeMokepon
 let imputSquare
 let imputCircol 
 let imputTrayangle
 var mascotaJugador
 var ataquesMokepon
+var ataqueMokeponEnemigo
 let botonFuego
 let botonAgua
 let botonPlanta 
 var botones = []
-
+var indexAtaqueJugador
+var indexAtaqueEnemigo 
+var victoriasJugador = 0
+var victoriasEnemigo = 0
 
 
 let vidasJugador = 3
@@ -179,69 +183,99 @@ function secuenciaAtaque() {
                  ataqueJugador.push("Fuego")
                  console.log(ataqueJugador)
                  boton.style.background = "#112f58"   
-                
+                 boton.disabled = true   
             } else if(e.target.textContent === "💧"){
                 ataqueJugador.push("Agua")
                 console.log(ataqueJugador)
                 boton.style.background = "#112f58"
+                boton.disabled = true  
             } else {
                 ataqueJugador.push("Planta")
                 console.log(ataqueJugador)
                 boton.style.background = "#112f58"
+                boton.disabled = true  
             }
+            ataqueAleatorioEnemigo()
         })
     })
+    
 }
 
 function seleccionarMokeponEnemigo() {
     let ataqueAleatorio = aleatorio(0,mokepones.length -1)
     sectionSeleccionarMokepon.style.display = "none"
     spanMokeponEnemigo.innerHTML = mokepones[ataqueAleatorio].nombre
+    ataqueMokeponEnemigo = mokepones[ataqueAleatorio].ataques
     secuenciaAtaque()
 }
 
 
 function ataqueAleatorioEnemigo(){
-    let ataqueRng = aleatorio(1,3)
+    let ataqueRng = aleatorio(0,ataqueMokeponEnemigo.length -1)
     
-    if (ataqueRng == 1){
-        ataqueEnemigo = "Fuego"
-    } else if (ataqueRng == 2) {
-        ataqueEnemigo = "Agua"
-    } else if (ataqueRng == 3) {
-        ataqueEnemigo = "Planta"
+    if (ataqueRng == 0 || ataqueRng ==1){
+        ataqueEnemigo.push("Fuego")
+    } else if (ataqueRng == 3 || ataqueRng == 4 ) {
+        ataqueEnemigo.push("Agua")
+    } else {
+        ataqueEnemigo.push("Planta")
     }
-
-   combate()
+    
+    iniciarCombate()
+   
 } 
+
+function iniciarCombate() {
+    if (ataqueJugador.length === 5) {
+        combate()
+        
+    }
+}
+
+function indexAmbosOponentes(jugador, enemigo) {
+        indexAtaqueJugador = ataqueJugador[jugador];
+        indexAtaqueEnemigo = ataqueEnemigo[enemigo];
+}
 
 function combate(){
    
-    if(ataqueEnemigo == ataqueJugador){
-        crearAviso("Poco Eficaz")
-    } else if(ataqueJugador == "Fuego" && ataqueEnemigo == "Planta"){
-        crearAviso("Es muy eficaz")
-        vidasEnemigo--
-        spanVidasEnemigo.innerHTML = vidasEnemigo
-    } else if(ataqueJugador == "Agua" && ataqueEnemigo == "Fuego"){
-        crearAviso("Es muy eficaz")
-        vidasEnemigo--
-        spanVidasEnemigo.innerHTML = vidasEnemigo
-    } else if(ataqueJugador == "Planta" && ataqueEnemigo == "Agua"){
-        crearAviso("Es muy eficaz")
-        vidasEnemigo--
-        spanVidasEnemigo.innerHTML = vidasEnemigo
-    } else {
-        crearAviso("Es muy poco eficaz")
-        vidasJugador--
-        spanVidasJugador.innerHTML = vidasJugador
+    for (let index = 0; index < ataqueJugador.length; index++) {
+        console.log("for " + (ataqueJugador[index] === ataqueEnemigo[index]))
+        if (ataqueJugador[index] === ataqueEnemigo[index]) {
+            indexAmbosOponentes(index, index)
+            crearAviso("Poco Eficaz")
+        } else if (ataqueJugador[index] === "Fuego" && ataqueEnemigo[index] === "Planta") {
+            indexAmbosOponentes(index, index)
+            crearAviso("Es muy Eficaz")
+            victoriasJugador++
+            spanVidasJugador.innerHTML = victoriasJugador
+        } else if (ataqueJugador[index] === "Agua" && ataqueEnemigo[index] === "Fuego") {
+            indexAmbosOponentes(index, index)
+            crearAviso("Es muy Eficaz")
+            victoriasJugador++
+            spanVidasJugador.innerHTML = victoriasJugador
+        } else if (ataqueJugador[index] === "Planta" && ataqueEnemigo[index] === "Agua") {
+            indexAmbosOponentes(index, index)
+            crearAviso("Es muy Eficaz")
+            victoriasJugador++
+            spanVidasJugador.innerHTML = victoriasJugador
+        } else {
+            indexAmbosOponentes(index, index)
+            crearAviso("Es muy poco eficaz")
+            victoriasEnemigo++
+            spanVidasEnemigo.innerHTML = victoriasEnemigo
+        }
+        
+        
     }
     revisarCombate()
 }
 function revisarCombate(){
-    if (vidasEnemigo == 0){
-        crearAvisoFinal("Has derrotado al oponente")
-    } else if (vidasJugador == 0){
+    if (victoriasJugador === victoriasEnemigo){
+        crearAvisoFinal("Esto ha sido empate!")
+    } else if (victoriasJugador > victoriasEnemigo){
+        crearAvisoFinal("Felicitaciones!, Has vencido.")
+    } else {
         crearAvisoFinal("Has sido derrotado")
     }
 
@@ -254,8 +288,8 @@ function crearAviso(resultado){
     let nuevoAtaqueDelEnemigo = document.createElement("p")
 
     seccionAvisos.innerHTML = resultado 
-    nuevoAtaqueDelJugador.innerHTML = ataqueJugador
-    nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo
+    nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador
+    nuevoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo
 
     
     ataqueDelJugador.appendChild(nuevoAtaqueDelJugador)
@@ -266,11 +300,6 @@ function crearAvisoFinal(resultadoFinal){
    
     seccionAvisos.innerHTML = resultadoFinal
     
-    botonFuego.disabled = true
-    
-    botonAgua.disabled = true
-   
-    botonPlanta.disabled = true
    
     sectionReiniciarCombate.style.display = "block"
 }

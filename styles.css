@@ -82,14 +82,14 @@ input:checked + label{
     padding: 10px;
     box-sizing: border-box;
     border-radius: 25px;
-    width: 100px;
+    width: 90px;
     font-family: 'Press Start 2P', cursive;
     
 }
 #resultado{
-width: 100px;
+width: 112px;
 background: white;
-padding: 20px;
+padding: 23px;
 margin-top: 20px;
 border-radius: 30px;
 display: flex;
