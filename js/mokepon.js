@@ -22,6 +22,9 @@ const ataqueDelEnemigo = document.getElementById("ataque-del-enemigo")
 const contenedorTarjetas = document.getElementById("contenedorTarjetas")
 const contenedorAtaques = document.getElementById("contenedorAtaques")
 
+const sectionVerMapa = document.getElementById("ver-mapa")
+const mapa = document.getElementById("mapa")
+
 var mokepones = []
 let ataqueJugador = []
 let ataqueEnemigo = []
@@ -40,6 +43,7 @@ var indexAtaqueJugador
 var indexAtaqueEnemigo 
 var victoriasJugador = 0
 var victoriasEnemigo = 0
+var lienzo = mapa.getContext("2d")
 
 
 let vidasJugador = 3
@@ -94,6 +98,7 @@ mokepones.push(Square,Circol,Trayangle)
 function iniciarJuego(){
     
     sectionSeleccionarAtaque.style.display = "none"  
+    sectionVerMapa.style.display = "none"
 
     mokepones.forEach((Mokepon) =>{
         opcionesDeMokepon =  `
@@ -119,8 +124,17 @@ function iniciarJuego(){
 function seleccionarMokeponJugador(Mokepon){
     sectionSeleccionarMokepon.style.display = "none"
 
-    sectionSeleccionarAtaque.style.display = "flex"
-
+    //sectionSeleccionarAtaque.style.display = "flex"
+      sectionVerMapa.style.display = "flex"
+      var imagenDeSquare = new Image()
+      imagenDeSquare.src = Square.foto  
+      lienzo.drawImage(
+        imagenDeSquare,
+        20,
+        40,
+        100,
+        100
+      )
         if (imputSquare.checked == true){
             spanMokeponJugador.innerHTML = imputSquare.id
             mascotaJugador = imputSquare.id
