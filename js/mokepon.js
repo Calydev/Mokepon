@@ -101,6 +101,15 @@ Square.ataques.push(
 
 )
 
+SquareEnemigo.ataques.push(
+    { nombre: '🔥', id: 'Ataque-Fuego' },
+    { nombre: '🔥', id: 'Ataque-Fuego' },
+    { nombre: '🔥', id: 'Ataque-Fuego' },
+    { nombre: '💧', id: 'Ataque-Agua' },
+    { nombre: '🌱', id: 'Ataque-Planta' },
+
+)
+
 Circol.ataques.push(
     { nombre: '💧', id: 'Ataque-Agua' },
     { nombre: '💧', id: 'Ataque-Agua' },
@@ -110,7 +119,25 @@ Circol.ataques.push(
 
 )
 
+CircolEnemigo.ataques.push(
+    { nombre: '💧', id: 'Ataque-Agua' },
+    { nombre: '💧', id: 'Ataque-Agua' },
+    { nombre: '💧', id: 'Ataque-Agua' },
+    { nombre: '🔥', id: 'Ataque-Fuego' },
+    { nombre: '🌱', id: 'Ataque-Planta' },
+
+)
+
 Trayangle.ataques.push(
+    { nombre: '🌱', id: 'Ataque-Planta' },
+    { nombre: '🌱', id: 'Ataque-Planta' },
+    { nombre: '🌱', id: 'Ataque-Planta' },
+    { nombre: '💧', id: 'Ataque-Agua' },
+    { nombre: '🔥', id: 'Ataque-Fuego' },
+
+)
+
+TrayangleEnemigo.ataques.push(
     { nombre: '🌱', id: 'Ataque-Planta' },
     { nombre: '🌱', id: 'Ataque-Planta' },
     { nombre: '🌱', id: 'Ataque-Planta' },
@@ -151,7 +178,7 @@ function iniciarJuego(){
 function seleccionarMokeponJugador(Mokepon){
     sectionSeleccionarMokepon.style.display = "none"
 
-    //sectionSeleccionarAtaque.style.display = "flex"
+    
      
         if (imputSquare.checked == true){
             spanMokeponJugador.innerHTML = imputSquare.id
@@ -174,7 +201,7 @@ function seleccionarMokeponJugador(Mokepon){
     extraerAtaques(mascotaJugador)
     sectionVerMapa.style.display = "flex"
     iniciarMapa()
-    seleccionarMokeponEnemigo()
+    
     
 }
 
@@ -245,6 +272,7 @@ function seleccionarMokeponEnemigo() {
 
 
 function ataqueAleatorioEnemigo(){
+    console.log("Ataques enemigo", ataqueMokeponEnemigo);
     let ataqueRng = aleatorio(0,ataqueMokeponEnemigo.length -1)
     
     if (ataqueRng == 0 || ataqueRng ==1){
@@ -364,6 +392,11 @@ function pintarCanvas() {
     SquareEnemigo.pintarMokepon()
     CircolEnemigo.pintarMokepon()
     TrayangleEnemigo.pintarMokepon()
+        if (mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0) {
+            revisarColision(CircolEnemigo)
+            revisarColision(SquareEnemigo)
+            revisarColision(TrayangleEnemigo)
+        }
 }
 
 function moverDerecha() {
@@ -432,6 +465,34 @@ function obtenerObjetoMascota() {
            }  
            
         }
+}
+
+function revisarColision(enemigo) {
+    const arribaEnemigo = enemigo.y
+    const abajoEnemigo = enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo = enemigo.x
+    const arribaMascota = mascotaJugadorObjeto.y
+    const abajoMascota= mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
+    const derechaMascota = mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
+    const izquierdaMascota = mascotaJugadorObjeto.x
+
+    if (
+        abajoMascota < arribaEnemigo ||
+        arribaMascota > abajoEnemigo ||
+        derechaMascota < izquierdaEnemigo ||
+        izquierdaMascota > derechaEnemigo
+        
+        ) {
+        return;
+    }
+    detenerMovimiento()
+    clearInterval(intervalo)
+    console.log("se detecto caderiñia");
+    sectionSeleccionarAtaque.style.display = "flex"
+    sectionVerMapa.style.display = "none"
+    seleccionarMokeponEnemigo(enemigo)
+    
 }
 
 window.addEventListener("load" , iniciarJuego)
