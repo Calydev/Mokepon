@@ -128,11 +128,21 @@ flex-direction: column;
 
 }
 
-#mapa{
-    border: 2px solid white;
+#ver-mapa button {
+    background-color: transparent;
+    width: 90px;
+    height: 45px;
+    border-radius: 10px;
+    margin: 20px 0; 
+    padding: 13px;
+    box-sizing: border-box;
+    border: 2px solid dimgray;
+    color: darkmagenta;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 11px;
 }
 
-@media (max-width: 360px){
+@media (max-width: 560px){
     .tarjetas, .tarjetas-ataque{
         flex-direction: column;
     }
@@ -140,3 +150,10 @@ flex-direction: column;
    
 }
 
+@media (max-width: 300px) {
+    #ver-mapa div{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}

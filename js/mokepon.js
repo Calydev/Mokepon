@@ -48,6 +48,18 @@ var lienzo = mapa.getContext("2d")
 var intervalo
 var mapaBackground = new Image()
 mapaBackground.src = "./assets/mokemap.webp"
+var alturQueBuscamos
+var anchoDelMapa = window.innerWidth - 20
+const anchoMaximoDelMapa = 350
+if (anchoDelMapa > anchoMaximoDelMapa) {
+    anchoDelMapa = anchoMaximoDelMapa - 20
+    
+}
+
+alturQueBuscamos = anchoDelMapa * 600 / 800
+
+mapa.width = anchoDelMapa
+mapa.height = alturQueBuscamos
 
 
 
@@ -55,15 +67,15 @@ let vidasJugador = 3
 let vidasEnemigo = 3
 
 class Mokepon {
-    constructor(nombre, foto, vidas, fotoMapa, x = 10, y = 10 ){
+    constructor(nombre, foto, vidas, fotoMapa){
         this.nombre = nombre
         this.foto = foto
         this.vidas = vidas
         this.ataques = []
-        this.x = x
-        this.y = y
         this.ancho = 40
         this.alto = 40
+        this.x = aleatorio(0, mapa.width - this.ancho)
+        this.y = aleatorio(0, mapa.height - this.alto) 
         this.mapaFoto = new Image()
         this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
@@ -86,11 +98,11 @@ let Circol = new Mokepon('Circol', './assets/Circle.webp', 5, "./assets/hipodoge
 
 let Trayangle = new Mokepon('Trayangle', './assets/Triangle.webp', 5, "./assets/capipepo.webp")
 
-let SquareEnemigo = new Mokepon('Square', './assets/Square.webp', 5, "./assets/ratigueya.webp", 200, 190)
+let SquareEnemigo = new Mokepon('Square', './assets/Square.webp', 5, "./assets/ratigueya.webp")
 
-let CircolEnemigo = new Mokepon('Circol', './assets/Circle.webp', 5, "./assets/hipodoge.png", 80, 120)
+let CircolEnemigo = new Mokepon('Circol', './assets/Circle.webp', 5, "./assets/hipodoge.png")
 
-let TrayangleEnemigo = new Mokepon('Trayangle', './assets/Triangle.webp', 5, "./assets/capipepo.webp", 150, 95)
+let TrayangleEnemigo = new Mokepon('Trayangle', './assets/Triangle.webp', 5, "./assets/capipepo.webp")
 
 Square.ataques.push(
     { nombre: '🔥', id: 'Ataque-Fuego' },
@@ -444,8 +456,7 @@ function sePresionoUnaTecla(event) {
 }
 
 function iniciarMapa() {
-    mapa.width = 320
-    mapa.height = 240
+
     mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
     console.log(mascotaJugadorObjeto, mascotaJugador);
     intervalo = setInterval(pintarCanvas, 50) 
